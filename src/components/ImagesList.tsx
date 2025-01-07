@@ -6,7 +6,7 @@ import "./ImagesList.css";
 import { IImage } from "../interfaces/image.interface";
 
 export default function ImagesList() {
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [loadingImages, setLoadingImages] = useState<{
     [key: string]: boolean;
   }>({});
@@ -16,7 +16,7 @@ export default function ImagesList() {
       `https://picsum.photos/v2/list?page=${pageParam}&limit=10`
     );
     if (!res.ok) {
-      throw new Error("Error al cargar las imágenes");
+      throw new Error("Error loading images");
     }
     return res.json();
   };
@@ -26,7 +26,6 @@ export default function ImagesList() {
     isLoading,
     isError,
     fetchNextPage,
-    hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(["images"], getImages, {
     getNextPageParam: (lastPage, pages) => {
@@ -34,12 +33,21 @@ export default function ImagesList() {
     },
   });
 
-  const handleScroll = () => {};
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const element = scrollRef.current;
+    const scrollTop = element.scrollTop;
+    const scrollHeight = element.scrollHeight;
+    const clientHeight = element.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+      fetchNextPage();
+    }
+  };
 
   const handleImageLoad = (id: string) => {
     setLoadingImages((prevState) => ({
       ...prevState,
-      [id]: false, 
+      [id]: false,
     }));
   };
 
@@ -51,36 +59,49 @@ export default function ImagesList() {
   };
 
   return (
-    <ScrollArea.Root
-      className="containerImages"
-      onScroll={handleScroll}
-      ref={scrollRef}
-    >
-      <ScrollArea.Viewport>
-        <div className="grid-container">
-          {data?.pages.map((page, index) => (
-            <React.Fragment key={index}>
-              {page.map((image: IImage) => {
-                const isLoading = loadingImages[image.id] !== false; 
-                return (
-                  <Box className="grid-item" key={image.id}>
-                    {isLoading && <Skeleton width="100%" height="200px" />}
-                    <img
-                      src={image.download_url}
-                      alt={image.author}
-                      className={`grid-image ${isLoading ? "hidden" : ""}`}
-                      onLoad={() => handleImageLoad(image.id)}
-                      onError={() => handleImageError(image.id)} 
-                    />
-                    <Text className={"grid-text"}>{image.author}</Text>
-                  </Box>
-                );
-              })}
-            </React.Fragment>
-          ))}
-        </div>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar orientation="vertical" />
-    </ScrollArea.Root>
+    <>
+      <ScrollArea.Root
+        className="container-images"
+        onScroll={handleScroll}
+        ref={scrollRef}
+      >
+        {isLoading ? (
+          <Skeleton width="100%" height="70vh" />
+        ) : (
+          <ScrollArea.Viewport>
+            <Box className="grid-container">
+              {data?.pages.map((page, index) => (
+                <React.Fragment key={index}>
+                  {page.map((image: IImage) => {
+                    const isLoading = loadingImages[image.id] !== false;
+                    return (
+                      <Box className="grid-item" key={image.id}>
+                        {isLoading && <Skeleton width="100%" height="200px" />}
+                        <img
+                          src={image.download_url}
+                          alt={image.author}
+                          className={`grid-image ${isLoading ? "hidden" : ""}`}
+                          onLoad={() => handleImageLoad(image.id)}
+                          onError={() => handleImageError(image.id)}
+                        />
+                        <Text className={"grid-text"}>{image.author}</Text>
+                      </Box>
+                    );
+                  })}
+                </React.Fragment>
+              ))}
+            </Box>
+          </ScrollArea.Viewport>
+        )}
+      </ScrollArea.Root>
+      <Box className="container-spinner">
+        {isFetchingNextPage && <Spinner className="spinner" />}
+      </Box>
+      {isError && (
+        <Box className="container-error">
+          <Text>An error has occurred.</Text>
+        </Box>
+      )}
+    </>
   );
 }
