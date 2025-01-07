@@ -10,8 +10,10 @@ import { isValidPassword, isValidUsername } from "../services/authService";
 import AlertDialogComponent from "../components/AlertDialog";
 import { IAlertDialog } from "../interfaces/alertDialog,interface";
 import { useUserStore } from "../store/authStore";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [userData, setUserData] = useState({ username: "", password: "" });
   const [alertDialog, setAlertDialog] = useState<IAlertDialog>({
@@ -44,7 +46,7 @@ export default function Login() {
       });
     } else {
       setUser(userData);
-      console.log(useUserStore.getState());
+      navigate("/home");
     }
   };
 
@@ -91,7 +93,12 @@ export default function Login() {
                   )}
                 </TextField.Slot>
               </TextField.Root>
-              <Button type="submit" size="3" onClick={handleSubmit}>
+              <Button
+                type="submit"
+                size="3"
+                onClick={handleSubmit}
+                disabled={!userData.username || !userData.password}
+              >
                 Sign in
               </Button>
             </Flex>
