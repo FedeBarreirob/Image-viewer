@@ -1,0 +1,105 @@
+.CollapsibleSidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #2C2C2C;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    padding-top: 20px;
+}
+
+.CollapsibleSidebar[data-state="open"] {
+    width: 250px;
+}
+
+.CollapsibleSidebar[data-state="closed"] {
+    width: 70px;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.collapse-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.collapse-button:hover {
+    color: #6200EE;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #444444;
+    /* Línea de separación */
+    transition: background-color 0.3s ease;
+    /* Suaviza el efecto de hover */
+}
+
+nav ul li:last-child {
+    border-bottom: none;
+    /* Quitamos la línea en el último item */
+}
+
+nav ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 20px;
+    transition: color 0.3s ease;
+}
+
+nav ul li:hover {
+    background-color: #3e3e3e;
+    /* Fondo que cambia al pasar el mouse */
+}
+
+nav ul li a svg {
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+nav ul li a:hover svg {
+    transform: translateX(5px);
+    /* Efecto de movimiento al pasar el mouse */
+}
+
+.CollapsibleSidebar[data-state="open"] nav ul li a {
+    padding-left: 20px;
+}
+
+.CollapsibleSidebar[data-state="closed"] nav ul li a {
+    justify-content: center;
+}
+
+.CollapsibleSidebar[data-state="closed"] nav ul li a svg {
+    transform: rotate(180deg);
+}

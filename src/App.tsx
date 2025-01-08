@@ -4,6 +4,7 @@ import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Sidebar from "./components/Sidebar";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +19,12 @@ function App() {
         scaling="100%"
       >
         <Router>
+          <Sidebar />
           <Routes>
             <Route path="/" Component={Login} />
             <Route path="/login" Component={Login} />
+
+            {/* <Sidebar /> */}
             <Route path="/home" Component={Home} />
           </Routes>
         </Router>
