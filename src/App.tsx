@@ -9,10 +9,11 @@ import { Theme } from "@radix-ui/themes";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Sidebar from "./components/Sidebar";
-import CheckLocation from "./helpers/checkLocation";
 import ImageDetail from "./pages/ImageDetail";
 import { useUserStore } from "./store/authStore";
 import { useEffect } from "react";
+import useFavoritesStore from "./store/favoriteStore";
+import CheckLocation from "./helpers/CheckLocation";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,10 +25,12 @@ const queryClient = new QueryClient({
 
 function App() {
   const restoreUser = useUserStore((state) => state.restoreUser);
+  const restoreFavorites = useFavoritesStore((state) => state.restoreFavorites);
 
   useEffect(() => {
     restoreUser();
-  }, [restoreUser]);
+    restoreFavorites();
+  }, [restoreUser,restoreFavorites]);
 
   return (
     <QueryClientProvider client={queryClient}>

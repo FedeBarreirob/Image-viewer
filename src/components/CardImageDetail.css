@@ -57,3 +57,9 @@
 .download-button:hover {
     background-color: #4c2f77;
 }
+
+.bookmark-button{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
