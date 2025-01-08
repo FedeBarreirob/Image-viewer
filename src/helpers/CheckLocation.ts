@@ -7,7 +7,7 @@ interface CheckLocationProps {
 
 const CheckLocation : React.FC<CheckLocationProps> = ({ children }) => {
   const location = useLocation();
-  const protectedRoutes = ["/home", "/my-favorites", "/detail"];
+  const protectedRoutes = ["/home", "/favorites", "/detail"];
 
   const isDetailRoute = /^\/detail\/[^/]+$/.test(location.pathname);
 

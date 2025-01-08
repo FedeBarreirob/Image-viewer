@@ -1,14 +1,36 @@
-import { Box } from "@radix-ui/themes";
+import { Box, Skeleton } from "@radix-ui/themes";
 import ImagesList from "../components/ImagesList";
+import { useInfiniteQuery } from "react-query";
 
 export default function Home() {
+  const getImages = async ({ pageParam = 1 }) => {
+    const res = await fetch(
+      `https://picsum.photos/v2/list?page=${pageParam}&limit=10`
+    );
+    if (!res.ok) {
+      throw new Error("Error loading images");
+    }
+    return res.json();
+  };
+
+  const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery(["images"], getImages, {
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.length > 0 ? pages.length + 1 : undefined;
+      },
+    });
+
   return (
     <Box>
-      <Box style={{height:'10vh'}}></Box>
-      <Box style={{ display: "flex", justifyContent: "center" }}>
-        <Box style={{ width: "60%"}}>
-          <ImagesList />
-        </Box>
+      <Box className="centered-container">
+        <Skeleton loading={true}>
+          <ImagesList
+            images={data ? data.pages.flat() : []}
+            fetchNextPage={fetchNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            isError={isError}
+          />
+        </Skeleton>
       </Box>
     </Box>
   );

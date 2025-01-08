@@ -5,6 +5,6 @@ export const sidebarItems = [
     },
     {
         name: 'My images',
-        path: '/my-images'
+        path: '/favorites'
     }
 ]

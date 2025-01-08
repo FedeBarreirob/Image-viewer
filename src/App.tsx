@@ -14,6 +14,8 @@ import { useUserStore } from "./store/authStore";
 import { useEffect } from "react";
 import useFavoritesStore from "./store/favoriteStore";
 import CheckLocation from "./helpers/CheckLocation";
+import Favorites from "./pages/Favorites";
+import './App.css'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,6 +51,7 @@ function App() {
             <Route path="/login" Component={Login} />
             <Route path="/home" Component={Home} />
             <Route path="/detail/:id" Component={ImageDetail} />
+            <Route path="/favorites" Component={Favorites} />
           </Routes>
         </Router>
       </Theme>
