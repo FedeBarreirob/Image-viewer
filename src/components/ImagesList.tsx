@@ -4,8 +4,10 @@ import React, { useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import "./ImagesList.css";
 import { IImage } from "../interfaces/image.interface";
+import { useNavigate } from "react-router-dom";
 
 export default function ImagesList() {
+  const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [loadingImages, setLoadingImages] = useState<{
     [key: string]: boolean;
@@ -58,6 +60,10 @@ export default function ImagesList() {
     }));
   };
 
+  const handleClickImage = (imageId: string) => {
+    navigate(`/detail/${imageId}`)
+  }
+
   return (
     <>
       <ScrollArea.Root
@@ -75,7 +81,7 @@ export default function ImagesList() {
                   {page.map((image: IImage) => {
                     const isLoading = loadingImages[image.id] !== false;
                     return (
-                      <Box className="grid-item" key={image.id}>
+                      <Box className="grid-item" key={image.id} onClick={() => handleClickImage(image.id)}>
                         {isLoading && <Skeleton width="100%" height="200px" />}
                         <img
                           src={image.download_url}
