@@ -17,7 +17,7 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const { user } = useUserStore();
   const clearUser = useUserStore((state) => state.clearUser);
-
+  
   const handleLogout = () => {
     clearUser()
     navigate("/login")

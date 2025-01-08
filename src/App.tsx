@@ -14,7 +14,13 @@ import ImageDetail from "./pages/ImageDetail";
 import { useUserStore } from "./store/authStore";
 import { useEffect } from "react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    }
+  }
+});
 
 function App() {
   const restoreUser = useUserStore((state) => state.restoreUser);
