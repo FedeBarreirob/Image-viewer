@@ -1,9 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Login from "./pages/Login";
@@ -15,24 +11,27 @@ import { useEffect } from "react";
 import useFavoritesStore from "./store/favoriteStore";
 import CheckLocation from "./helpers/CheckLocation";
 import Favorites from "./pages/Favorites";
-import './App.css'
+import "./App.css";
+import useAlert from "./hooks/useAlert";
+import CustomCallout from "./components/CustomCallout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-    }
-  }
+    },
+  },
 });
 
 function App() {
   const restoreUser = useUserStore((state) => state.restoreUser);
   const restoreFavorites = useFavoritesStore((state) => state.restoreFavorites);
+  const { alert } = useAlert();
 
   useEffect(() => {
     restoreUser();
     restoreFavorites();
-  }, [restoreUser,restoreFavorites]);
+  }, [restoreUser, restoreFavorites]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -44,8 +43,7 @@ function App() {
         scaling="100%"
       >
         <Router>
-          <CheckLocation children={<Sidebar />}>
-          </CheckLocation>
+          <CheckLocation children={<Sidebar />}></CheckLocation>
           <Routes>
             <Route path="/" Component={Login} />
             <Route path="/login" Component={Login} />
@@ -54,6 +52,7 @@ function App() {
             <Route path="/favorites" Component={Favorites} />
           </Routes>
         </Router>
+        <CustomCallout alert={alert} />
       </Theme>
     </QueryClientProvider>
   );

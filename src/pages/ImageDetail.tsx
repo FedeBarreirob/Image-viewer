@@ -18,13 +18,7 @@ export default function ImageDetail() {
 
   return (
     <Box
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        height: "100vh",
-      }}
+      className="centered-container"
     >
       {!isLoading && data && <CardImageDetail image={data} />}
       {isLoading && <Spinner size={"3"}/>}

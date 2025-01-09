@@ -58,8 +58,7 @@
     background-color: #4c2f77;
 }
 
-.bookmark-button{
+.go-back-icon {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    cursor: pointer;
 }

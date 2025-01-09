@@ -7,20 +7,15 @@ import {
 import { Box, Button, Card, Flex, Text, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 import { isValidPassword, isValidUsername } from "../services/authService";
-import AlertDialogComponent from "../components/AlertDialog";
-import { IAlertDialog } from "../interfaces/alertDialog,interface";
 import { useUserStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
+import useAlert from "../hooks/useAlert";
 
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [userData, setUserData] = useState({ username: "", password: "" });
-  const [alertDialog, setAlertDialog] = useState<IAlertDialog>({
-    open: false,
-    title: "",
-    message: "",
-  });
+  const { openAlert } = useAlert();
   const setUser = useUserStore((state) => state.setUser);
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
@@ -32,27 +27,22 @@ export default function Login() {
     const isPasswordValid = isValidPassword(userData.password);
 
     if (!isUsernameValid) {
-      setAlertDialog({
-        open: true,
-        title: "Invalid Username",
-        message: "The username must contain only lowercase letters.",
-      });
+      openAlert("The username must contain only lowercase letters.", "red");
     } else if (!isPasswordValid) {
-      setAlertDialog({
-        open: true,
-        title: "Invalid Password",
-        message:
-          "The password must start with '123' and be followed by a lowercase name.",
-      });
+      openAlert(
+        "The password must start with '123' and be followed by a lowercase name.",
+        "red"
+      );
     } else {
       setUser(userData);
       navigate("/home");
+      openAlert("Login successful!", "green");
     }
   };
 
   return (
     <Box>
-      <Flex align="center" justify="center" style={{ height: "100vh" }} p="4">
+      <Flex className="centered-container">
         <Card style={{ padding: "2rem" }}>
           <Flex direction="column" gap="4">
             <Flex direction="column" align="center" gap="2">
@@ -105,14 +95,6 @@ export default function Login() {
           </Flex>
         </Card>
       </Flex>
-
-      {alertDialog.open && (
-        <AlertDialogComponent
-          title={alertDialog.title}
-          message={alertDialog.message}
-          handleClose={() => setAlertDialog({ ...alertDialog, open: false })}
-        />
-      )}
     </Box>
   );
 }

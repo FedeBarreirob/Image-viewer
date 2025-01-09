@@ -80,3 +80,10 @@
     text-align: center;
     font-size: 25px;
 }
+
+.container-favorite {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 5px;
+}

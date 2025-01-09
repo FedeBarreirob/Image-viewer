@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Card,
-  IconButton,
   Inset,
   Spinner,
   Strong,
@@ -11,44 +10,35 @@ import {
 import { IImage } from "../interfaces/image.interface";
 import "./CardImageDetail.css";
 import useDownloadImage from "../hooks/useDownloadImage";
-import { BookmarkFilledIcon, BookmarkIcon } from "@radix-ui/react-icons";
-import useFavoritesStore from "../store/favoriteStore";
+import FavoriteButton from "./FavoriteButton";
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
+import { useNavigate } from "react-router-dom";
 
 interface CardImageDetailProps {
   image: IImage;
 }
 
 export default function CardImageDetail({ image }: CardImageDetailProps) {
+  const navigate = useNavigate()
   const { handleDownload, downloading } = useDownloadImage(
     image.download_url,
     image.id
   );
-  const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
-
-  const handleFavorite = () => {
-    if(isFavorite(image.id)){
-      removeFavorite(image.id)
-    }else{
-      addFavorite(image)
-    }
-  }
+  
+  const handleGoBack = () => navigate(-1);
 
   return (
     <Box className="card-image-detail">
       <Card className="card-image" size="3">
-        <IconButton className={"bookmark-button"} onClick={handleFavorite}>
-          {isFavorite(image.id) ? (
-            <BookmarkFilledIcon
-              width="18"
-              height="18"
-            />
-          ) : (
-            <BookmarkIcon
-              width="18"
-              height="18"
-            />
-          )}
-        </IconButton>
+        <ChevronLeftIcon
+          width={25}
+          height={25}
+          className="go-back-icon"
+          onClick={handleGoBack}
+        />
+        <Box className="bookmark-button">
+          <FavoriteButton image={image} />
+        </Box>
         <Inset clip="padding-box" side="top" pb="current">
           <img src={image.download_url} alt={image.author} className="image" />
         </Inset>

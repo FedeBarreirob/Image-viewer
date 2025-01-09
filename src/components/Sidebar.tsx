@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { Box } from "@radix-ui/themes";
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
+  HamburgerMenuIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { sidebarItems } from "../utils/sidebarItems";
@@ -13,15 +12,15 @@ import { ISidebarItem } from "../interfaces/miscellaneous.interface";
 import { useUserStore } from "../store/authStore";
 
 export default function Sidebar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
   const { user } = useUserStore();
   const clearUser = useUserStore((state) => state.clearUser);
-  
+
   const handleLogout = () => {
-    clearUser()
-    navigate("/login")
-  }
+    clearUser();
+    navigate("/login");
+  };
 
   return (
     <Collapsible.Root
@@ -41,11 +40,7 @@ export default function Sidebar() {
           )}
           <Collapsible.Trigger asChild>
             <button className="collapse-button">
-              {isOpen ? (
-                <ChevronLeftIcon width={25} height={25} />
-              ) : (
-                <ChevronRightIcon width={25} height={25} />
-              )}
+              <HamburgerMenuIcon width={20} height={20} />
             </button>
           </Collapsible.Trigger>
         </div>
