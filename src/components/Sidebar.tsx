@@ -26,6 +26,7 @@ export default function Sidebar() {
     <Collapsible.Root
       className="CollapsibleSidebar"
       open={isOpen}
+      style={{backgroundColor: isOpen ? "#2C2C2C" : "transparent"}}
       onOpenChange={setIsOpen}
     >
       <Box className="sidebar-content">

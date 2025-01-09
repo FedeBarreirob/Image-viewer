@@ -57,7 +57,7 @@ export default function ImagesList({
   };
 
   return (
-    <Box style={{ width: "60%" }}>
+    <>
       <ScrollArea.Root
         className="container-images"
         onScroll={handleScroll}
@@ -97,6 +97,6 @@ export default function ImagesList({
           <Text>An error has occurred.</Text>
         </Box>
       )}
-    </Box>
+    </>
   );
 }

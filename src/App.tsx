@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Login from "./pages/Login";
@@ -27,6 +27,7 @@ function App() {
   const restoreUser = useUserStore((state) => state.restoreUser);
   const restoreFavorites = useFavoritesStore((state) => state.restoreFavorites);
   const { alert } = useAlert();
+  const { user } = useUserStore();
 
   useEffect(() => {
     restoreUser();
@@ -45,11 +46,14 @@ function App() {
         <Router>
           <CheckLocation children={<Sidebar />}></CheckLocation>
           <Routes>
-            <Route path="/" Component={Login} />
-            <Route path="/login" Component={Login} />
-            <Route path="/home" Component={Home} />
-            <Route path="/detail/:id" Component={ImageDetail} />
-            <Route path="/favorites" Component={Favorites} />
+            <Route path="/" Component={user ? Home : Login} />
+            <Route
+              path="/login"
+              Component={() => (user ? <Navigate to="/home" /> : <Login />)}
+            />
+            <Route path="/home" Component={() => (user ? <Home /> : <Navigate to="/login" />)} />
+            <Route path="/detail/:id" Component={() => (user ? <ImageDetail /> : <Navigate to="/login" />)} />
+            <Route path="/favorites" Component={() => (user ? <Favorites /> : <Navigate to="/login" />)} />
           </Routes>
         </Router>
         <CustomCallout alert={alert} />

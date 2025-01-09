@@ -1,4 +1,4 @@
-import { Box, Skeleton } from "@radix-ui/themes";
+import { Box, Spinner, Text } from "@radix-ui/themes";
 import ImagesList from "../components/ImagesList";
 import { useInfiniteQuery } from "react-query";
 
@@ -23,14 +23,14 @@ export default function Home() {
   return (
     <Box>
       <Box className="centered-container">
-        <Skeleton loading={true}>
-          <ImagesList
-            images={data ? data.pages.flat() : []}
-            fetchNextPage={fetchNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            isError={isError}
-          />
-        </Skeleton>
+        <Text className="title">Gallery</Text>
+        <ImagesList
+          images={data ? data.pages.flat() : []}
+          fetchNextPage={fetchNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          isError={isError}
+        />
+        {isLoading && <Spinner />}
       </Box>
     </Box>
   );

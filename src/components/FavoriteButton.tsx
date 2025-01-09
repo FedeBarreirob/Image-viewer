@@ -19,7 +19,7 @@ export default function FavoriteButton({ image }: FavoriteButtonProps) {
 
   return (
     <IconButton onClick={handleFavorite}>
-      {isFavorite(image.id) ? (
+      {isFavorite(image?.id) ? (
         <BookmarkFilledIcon width="18" height="18" />
       ) : (
         <BookmarkIcon width="18" height="18" />

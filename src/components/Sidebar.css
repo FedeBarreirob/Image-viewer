@@ -13,6 +13,12 @@
     z-index: 1;
 }
 
+@media (max-width: 768px) {
+    .CollapsibleSidebar {
+        box-shadow: none;
+    }
+}
+
 .CollapsibleSidebar[data-state="open"] {
     width: 250px;
 }
@@ -44,7 +50,7 @@
 
 
 .collapse-button:hover {
-    color: #3e3e3e;
+    color: #b8b8b8;
 }
 
 .sidebar-header {
@@ -137,6 +143,6 @@ nav ul li a:hover svg {
 }
 
 .footer-details p:hover {
-    color: #3e3e3e;
+    color: #b8b8b8;
     cursor: pointer;
 }

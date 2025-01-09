@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Inset,
+  Skeleton,
   Spinner,
   Strong,
   Text,
@@ -16,15 +17,21 @@ import { useNavigate } from "react-router-dom";
 
 interface CardImageDetailProps {
   image: IImage;
+  isLoading: boolean;
+  isFetching: boolean;
 }
 
-export default function CardImageDetail({ image }: CardImageDetailProps) {
-  const navigate = useNavigate()
+export default function CardImageDetail({
+  image,
+  isLoading,
+  isFetching,
+}: CardImageDetailProps) {
+  const navigate = useNavigate();
   const { handleDownload, downloading } = useDownloadImage(
-    image.download_url,
-    image.id
+    image?.download_url,
+    image?.id
   );
-  
+
   const handleGoBack = () => navigate(-1);
 
   return (
@@ -39,25 +46,37 @@ export default function CardImageDetail({ image }: CardImageDetailProps) {
         <Box className="bookmark-button">
           <FavoriteButton image={image} />
         </Box>
-        <Inset clip="padding-box" side="top" pb="current">
-          <img src={image.download_url} alt={image.author} className="image" />
-        </Inset>
+        <Skeleton loading={isLoading || isFetching}>
+          <Inset clip="padding-box" side="top" pb="current">
+            <img
+              src={image?.download_url}
+              alt={image?.author}
+              className="image"
+            />
+          </Inset>
+        </Skeleton>
         <Box className="card-content">
           <Text as="p" size="5" className="card-author">
-            <Strong style={{ fontSize: "1.5rem" }}>{image.author}</Strong>
+            <Skeleton loading={isLoading || isFetching}>
+              <Strong style={{ fontSize: "1.5rem" }}>{image?.author}</Strong>
+            </Skeleton>
           </Text>
 
           <Text as="p" size="4" className="card-dimensions">
-            <Strong>Dimensions:</Strong> {image.width} x {image.height} px
+            <Skeleton loading={isLoading || isFetching}>
+              <Strong>Dimensions:</Strong> {image?.width} x {image?.height} px
+            </Skeleton>
           </Text>
 
-          <Button
-            onClick={handleDownload}
-            disabled={downloading}
-            className="download-button"
-          >
-            {downloading ? <Spinner size={"3"} /> : "Download Image"}
-          </Button>
+          <Skeleton loading={isLoading || isFetching}>
+            <Button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="download-button"
+            >
+              {downloading ? <Spinner size={"3"} /> : "Download Image"}
+            </Button>
+          </Skeleton>
         </Box>
       </Card>
     </Box>

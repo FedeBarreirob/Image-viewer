@@ -1,4 +1,4 @@
-import { Box, Spinner, Text } from "@radix-ui/themes";
+import { Box, Text } from "@radix-ui/themes";
 import CardImageDetail from "../components/CardImageDetail";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -14,14 +14,15 @@ export default function ImageDetail() {
     return res.json();
   };
 
-  const { data, isLoading, isError } = useQuery("image-detail", getImageDetail);
+  const { data, isLoading, isError, isFetching } = useQuery(
+    "image-detail",
+    getImageDetail
+  );
 
   return (
-    <Box
-      className="centered-container"
-    >
-      {!isLoading && data && <CardImageDetail image={data} />}
-      {isLoading && <Spinner size={"3"}/>}
+    <Box className="centered-container">
+      <CardImageDetail image={data} isLoading={isLoading} isFetching={isFetching} />
+
       {isError && (
         <Box className="container-error">
           <Text>An error has occurred.</Text>
