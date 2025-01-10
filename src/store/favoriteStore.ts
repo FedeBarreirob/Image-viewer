@@ -15,24 +15,24 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => ({
         set((state) => {
             const updatedFavorites = [...state.favorites, image];
             window.localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-            return { favorites: updatedFavorites }; // Retornamos el nuevo estado
+            return { favorites: updatedFavorites };
         });
     },
     removeFavorite: (imageId: string) => {
         set((state) => {
             const updatedFavorites = state.favorites.filter((fav) => fav.id !== imageId);
             window.localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-            return { favorites: updatedFavorites }; // Retornamos el nuevo estado
+            return { favorites: updatedFavorites };
         });
     },
     isFavorite: (imageId: string) => {
-        const state = get(); // Obtenemos el estado actual
+        const state = get();
         return state.favorites.some((fav) => fav.id === imageId);
     },
     restoreFavorites: () => {
         const savedFavorites = localStorage.getItem("favorites");
         if (savedFavorites) {
-            set({ favorites: JSON.parse(savedFavorites) }); // Actualizamos directamente el estado
+            set({ favorites: JSON.parse(savedFavorites) });
         }
     },
 }));

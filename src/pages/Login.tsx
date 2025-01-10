@@ -9,20 +9,21 @@ import { useState } from "react";
 import { isValidPassword, isValidUsername } from "../services/authService";
 import { useUserStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
-import useAlert from "../hooks/useAlert";
+import useAlertStore from "../store/alertStore";
 
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [userData, setUserData] = useState({ username: "", password: "" });
-  const { openAlert } = useAlert();
+  const { openAlert } = useAlertStore();
   const setUser = useUserStore((state) => state.setUser);
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
     const isUsernameValid = isValidUsername(userData.username);
     const isPasswordValid = isValidPassword(userData.password);
 
@@ -54,47 +55,49 @@ export default function Login() {
               </Text>
             </Flex>
 
-            <Flex direction="column" gap="3">
-              <TextField.Root name="username" onChange={handleChange}>
-                <TextField.Slot>
-                  <FaceIcon />
-                </TextField.Slot>
-              </TextField.Root>
+            <form onSubmit={handleSubmit}>
+              <Flex direction="column" gap="3">
+                <TextField.Root name="username" onChange={handleChange}>
+                  <TextField.Slot>
+                    <FaceIcon />
+                  </TextField.Slot>
+                </TextField.Root>
 
-              <TextField.Root
-                type={showPassword ? "text" : "password"}
-                onChange={handleChange}
-                name="password"
-              >
-                <TextField.Slot>
-                  <LockClosedIcon />
-                </TextField.Slot>
-                <TextField.Slot>
-                  {showPassword ? (
-                    <EyeClosedIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setShowPassword(false)}
-                    />
-                  ) : (
-                    <EyeOpenIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setShowPassword(true)}
-                    />
-                  )}
-                </TextField.Slot>
-              </TextField.Root>
-              <Button
-                type="submit"
-                size="3"
-                onClick={handleSubmit}
-                disabled={!userData.username || !userData.password}
-              >
-                Sign in
-              </Button>
-            </Flex>
+                <TextField.Root
+                  type={showPassword ? "text" : "password"}
+                  onChange={handleChange}
+                  name="password"
+                >
+                  <TextField.Slot>
+                    <LockClosedIcon />
+                  </TextField.Slot>
+                  <TextField.Slot>
+                    {showPassword ? (
+                      <EyeClosedIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setShowPassword(false)}
+                      />
+                    ) : (
+                      <EyeOpenIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )}
+                  </TextField.Slot>
+                </TextField.Root>
+                <Button
+                  type="submit"
+                  size="3"
+                  disabled={!userData.username || !userData.password}
+                >
+                  Sign in
+                </Button>
+              </Flex>
+            </form>
           </Flex>
         </Card>
       </Flex>
+      {/* {alert?.open && <CustomCallout alert={alert}/>} */}
     </Box>
   );
 }

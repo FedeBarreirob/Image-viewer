@@ -1,21 +1,22 @@
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Box, Callout } from "@radix-ui/themes";
 import "./CustomCallout.css";
-import { IAlert } from "../interfaces/alert.interface";
+import useAlertStore from "../store/alertStore";
 
-interface customCalloutProps {
-  alert: IAlert;
-}
 
-export default function CustomCallout({ alert }: customCalloutProps) {
+export default function CustomCallout() {
+  const alert = useAlertStore((state) => state.alert);
+  if (!alert?.open) return null;
   return (
     <Box className="container">
-      <Callout.Root color="red">
-        <Callout.Icon>
-          <InfoCircledIcon />
-        </Callout.Icon>
-        <Callout.Text>{alert.text}</Callout.Text>
-      </Callout.Root>
+      <Box style={{display:'flex',justifyContent:'center',width:'100%'}}>
+        <Callout.Root color={alert?.color}>
+          <Callout.Icon>
+            <InfoCircledIcon />
+          </Callout.Icon>
+          <Callout.Text>{alert?.text}</Callout.Text>
+        </Callout.Root>
+      </Box>
     </Box>
   );
 }

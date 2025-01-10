@@ -1,4 +1,5 @@
-import { AlertColor } from "../hooks/useAlert";
+import { AlertColor } from "../store/alertStore";
+
 
 export interface IAlert {
     open: boolean,

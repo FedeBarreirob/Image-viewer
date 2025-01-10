@@ -12,7 +12,6 @@ import useFavoritesStore from "./store/favoriteStore";
 import CheckLocation from "./helpers/CheckLocation";
 import Favorites from "./pages/Favorites";
 import "./App.css";
-import useAlert from "./hooks/useAlert";
 import CustomCallout from "./components/CustomCallout";
 
 const queryClient = new QueryClient({
@@ -26,7 +25,6 @@ const queryClient = new QueryClient({
 function App() {
   const restoreUser = useUserStore((state) => state.restoreUser);
   const restoreFavorites = useFavoritesStore((state) => state.restoreFavorites);
-  const { alert } = useAlert();
   const { user } = useUserStore();
 
   useEffect(() => {
@@ -55,8 +53,8 @@ function App() {
             <Route path="/detail/:id" Component={() => (user ? <ImageDetail /> : <Navigate to="/login" />)} />
             <Route path="/favorites" Component={() => (user ? <Favorites /> : <Navigate to="/login" />)} />
           </Routes>
+        <CustomCallout />
         </Router>
-        <CustomCallout alert={alert} />
       </Theme>
     </QueryClientProvider>
   );
