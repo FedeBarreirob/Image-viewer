@@ -8,6 +8,7 @@ export default function Favorites() {
     <Box>
       <Box className="centered-container">
         <Text className="title">My favorites</Text>
+        {favorites.length === 0 && <Text>No favorites yet</Text>}
         <ImagesList images={favorites} />
       </Box>
     </Box>

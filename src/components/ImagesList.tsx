@@ -11,6 +11,7 @@ interface ImagesListProps {
   fetchNextPage?: () => void;
   isFetchingNextPage?: boolean;
   isError?: boolean;
+  isLoading?: boolean;
 }
 
 export default function ImagesList({
@@ -18,6 +19,7 @@ export default function ImagesList({
   fetchNextPage,
   isFetchingNextPage,
   isError,
+  isLoading,
 }: ImagesListProps) {
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -63,6 +65,11 @@ export default function ImagesList({
         onScroll={handleScroll}
         ref={scrollRef}
       >
+        {isLoading && (
+          <Box className="container-spinner">
+            <Spinner />
+          </Box>
+        )}
         <ScrollArea.Viewport>
           <Box className="grid-container">
             {images.map((image: IImage) => {
@@ -73,7 +80,7 @@ export default function ImagesList({
                     <FavoriteButton image={image} />
                   </Box>
                   {isLoading && <Skeleton width="100%" height="200px" />}
-                  <Box onClick={() => handleClickImage(image.id)}>
+                  <Box className="container-image-text" onClick={() => handleClickImage(image.id)}>
                     <img
                       src={image.download_url}
                       alt={image.author}

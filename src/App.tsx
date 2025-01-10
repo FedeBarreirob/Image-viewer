@@ -1,5 +1,9 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Login from "./pages/Login";
@@ -13,6 +17,8 @@ import CheckLocation from "./helpers/CheckLocation";
 import Favorites from "./pages/Favorites";
 import "./App.css";
 import CustomCallout from "./components/CustomCallout";
+import ProtectedRoute from "./helpers/ProtectedRoutes";
+import PublicRoute from "./helpers/PublicRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +31,6 @@ const queryClient = new QueryClient({
 function App() {
   const restoreUser = useUserStore((state) => state.restoreUser);
   const restoreFavorites = useFavoritesStore((state) => state.restoreFavorites);
-  const { user } = useUserStore();
 
   useEffect(() => {
     restoreUser();
@@ -42,18 +47,17 @@ function App() {
         scaling="100%"
       >
         <Router>
-          <CheckLocation children={<Sidebar />}></CheckLocation>
+          <CheckLocation>
+            <Sidebar />
+          </CheckLocation>
           <Routes>
-            <Route path="/" Component={user ? Home : Login} />
-            <Route
-              path="/login"
-              Component={() => (user ? <Navigate to="/home" /> : <Login />)}
-            />
-            <Route path="/home" Component={() => (user ? <Home /> : <Navigate to="/login" />)} />
-            <Route path="/detail/:id" Component={() => (user ? <ImageDetail /> : <Navigate to="/login" />)} />
-            <Route path="/favorites" Component={() => (user ? <Favorites /> : <Navigate to="/login" />)} />
+            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/detail/:id" element={<ProtectedRoute><ImageDetail /></ProtectedRoute>} />
+            <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
           </Routes>
-        <CustomCallout />
+          <CustomCallout />
         </Router>
       </Theme>
     </QueryClientProvider>

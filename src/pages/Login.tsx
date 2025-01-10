@@ -1,8 +1,8 @@
 import {
   EyeClosedIcon,
   EyeOpenIcon,
-  FaceIcon,
   LockClosedIcon,
+  PersonIcon,
 } from "@radix-ui/react-icons";
 import { Box, Button, Card, Flex, Text, TextField } from "@radix-ui/themes";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export default function Login() {
               <Flex direction="column" gap="3">
                 <TextField.Root name="username" onChange={handleChange}>
                   <TextField.Slot>
-                    <FaceIcon />
+                    <PersonIcon />
                   </TextField.Slot>
                 </TextField.Root>
 

@@ -29,8 +29,8 @@ export default function Home() {
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}
           isError={isError}
+          isLoading={isLoading}
         />
-        {isLoading && <Spinner />}
       </Box>
     </Box>
   );
