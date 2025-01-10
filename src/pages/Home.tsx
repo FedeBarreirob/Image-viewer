@@ -1,4 +1,4 @@
-import { Box, Spinner, Text } from "@radix-ui/themes";
+import { Box, Text } from "@radix-ui/themes";
 import ImagesList from "../components/ImagesList";
 import { useInfiniteQuery } from "react-query";
 
