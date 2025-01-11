@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# Visualizador de Imágenes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta aplicación permite visualizar un listado de imágenes, agregar imágenes a una lista de favoritos, eliminarlas, iniciar sesión (sin registro), ver detalles individuales y descargarlas. Es una solución moderna y eficiente, diseñada para ofrecer una experiencia rápida y fluida.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 **Características**
 
-## Expanding the ESLint configuration
+- **Listado de imágenes**: Visualiza un catálogo infinito de imágenes.
+- **Favoritos**: Agrega imágenes a tu lista de favoritos o elimínalas cuando ya no las necesites.
+- **Detalles**: Haz clic en una imagen para ver más información.
+- **Descargas**: Descarga las imágenes directamente a tu dispositivo.
+- **Sesión**: Inicia sesión para personalizar tu experiencia (no requiere registro).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ **Tecnologías Utilizadas**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **React**
+- **React Router**
+- **Vite**
+- **Zustand**
+- **React Query**
+- **Radix UI**
+- **TypeScript**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## ⚡ **Instalación y Configuración**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Sigue estos pasos para configurar y ejecutar el proyecto localmente:
+
+1. **Clonar el repositorio**:
+   ```bash
+   git clone https://github.com/FedeBarreirob/Image-viewer.git
+   cd image-viewer
+   ```
+2. **Instalar dependencias**:
+   npm install
+3. **Iniciar el servidor de desarrollo**:
+   npm run dev
+4. **Abrir en navegador**:
+   Por defecto, la aplicación estará disponible en http://localhost:5173.
+
+## **Estructura del proyecto**
+src/
+├── components/     # Componentes reutilizables
+├── helpers/        # Utilidades para funciones especificas
+├── interfaces/     # Tipos de datos definidos para objetos con Typescript
+├── hooks/          # Hooks personalizados
+├── pages/          # Páginas principales (Inicio, Favoritos, Detalle)
+├── store/          # Gestión de estado global con Zustand
+├── App.tsx         # Configuración principal de la aplicación
+└── main.tsx        # Entrada principal de Vite

@@ -9,8 +9,8 @@ import { useState } from "react";
 import { useUserStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 import useAlertStore from "../store/alertStore";
-import { isValidUsername } from "../utils/validators/usernameValidator";
-import { isValidPassword } from "../utils/validators/passwordValidator";
+import { isValidUsername } from "../helpers/validators/usernameValidator";
+import { isValidPassword } from "../helpers/validators/passwordValidator";
 
 export default function Login() {
   const navigate = useNavigate();

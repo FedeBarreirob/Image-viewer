@@ -1,7 +1,8 @@
 .container-images {
-    width: 50%;
-    height: 80vh;
+    width: 950px;
+    height: 1000px;
     overflow-y: auto;
+    margin-bottom: 25px;
 }
 
 @media (max-width: 768px) {
@@ -12,9 +13,15 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
     gap: 16px;
     padding: 16px;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
 }
 
 .grid-item {

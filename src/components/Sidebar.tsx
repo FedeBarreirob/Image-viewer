@@ -7,7 +7,7 @@ import {
   HamburgerMenuIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
-import { sidebarItems } from "../utils/sidebarItems";
+import { sidebarItems } from "../helpers/sidebarItems";
 import { ISidebarItem } from "../interfaces/miscellaneous.interface";
 import { useUserStore } from "../store/authStore";
 
