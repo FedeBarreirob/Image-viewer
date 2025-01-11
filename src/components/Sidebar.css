@@ -90,7 +90,6 @@ nav ul li a {
 
 nav ul li:hover {
     background-color: #3e3e3e;
-    /* Fondo que cambia al pasar el mouse */
 }
 
 nav ul li a svg {
@@ -100,7 +99,6 @@ nav ul li a svg {
 
 nav ul li a:hover svg {
     transform: translateX(5px);
-    /* Efecto de movimiento al pasar el mouse */
 }
 
 .CollapsibleSidebar[data-state="open"] nav ul li a {

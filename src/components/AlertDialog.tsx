@@ -1,6 +1,5 @@
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 
-// Componente para el AlertDialog
 export default function AlertDialogComponent({
   title,
   message,
@@ -13,7 +12,6 @@ export default function AlertDialogComponent({
 
   return (
     <>
-      {/* Mostrar el AlertDialog cuando isOpen es verdadero */}
       <AlertDialog.Root open={true} >
         <AlertDialog.Content maxWidth="450px">
           <AlertDialog.Title>{title}</AlertDialog.Title>

@@ -6,10 +6,11 @@ import {
 } from "@radix-ui/react-icons";
 import { Box, Button, Card, Flex, Text, TextField } from "@radix-ui/themes";
 import { useState } from "react";
-import { isValidPassword, isValidUsername } from "../services/authService";
 import { useUserStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 import useAlertStore from "../store/alertStore";
+import { isValidUsername } from "../utils/validators/usernameValidator";
+import { isValidPassword } from "../utils/validators/passwordValidator";
 
 export default function Login() {
   const navigate = useNavigate();

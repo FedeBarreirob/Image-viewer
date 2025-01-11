@@ -17,7 +17,7 @@ const useDownloadImage = (imageUrl: string, imageId: string) => {
         setDownloading(false);
         window.URL.revokeObjectURL(url);
       } catch (error) {
-        console.error("Error al descargar la imagen:", error);
+        console.error("Error trying to download image:", error);
       }
     }
   }, [imageUrl, imageId]);
