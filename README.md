@@ -41,14 +41,3 @@ Sigue estos pasos para configurar y ejecutar el proyecto localmente:
    npm run dev
 4. **Abrir en navegador**:
    Por defecto, la aplicación estará disponible en http://localhost:5173.
-
-## **Estructura del proyecto**
-src/
-├── components/     # Componentes reutilizables
-├── helpers/        # Utilidades para funciones especificas
-├── interfaces/     # Tipos de datos definidos para objetos con Typescript
-├── hooks/          # Hooks personalizados
-├── pages/          # Páginas principales (Inicio, Favoritos, Detalle)
-├── store/          # Gestión de estado global con Zustand
-├── App.tsx         # Configuración principal de la aplicación
-└── main.tsx        # Entrada principal de Vite
